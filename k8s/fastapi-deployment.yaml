@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: fastapi
-          image: arielizralevitch/test16:latest
+          image: arielizralevitch/test16:v6
           ports:
             - containerPort: 8000

@@ -1,7 +1,15 @@
 from fastapi import FastAPI
 from dal import *
+from connection import *
+
 
 app = FastAPI()
+
+
+@app.on_event("startup")
+def startup_event():
+    init_doc()
+
 
 
 
