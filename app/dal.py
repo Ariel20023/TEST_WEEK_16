@@ -1,9 +1,5 @@
-from pymongo import MongoClient
+from connection import *
 
-client = MongoClient("mongodb://localhost:27017")
-
-db = client.test
-employees = db.employees
 
 
 def get_engineering_high_salary_employees ():
