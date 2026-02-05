@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 
-client = MongoClient("employee_data_advanced.json")
+client = MongoClient("mongodb://localhost:27017")
 
 db = client.test
 employees = db.employees
@@ -16,7 +16,7 @@ def get_engineering_high_salary_employees ():
 
 
 def get_employees_by_age_and_role():
-    return list(employees.find({{"age":{"$gte":30 ,"$lte":45}},{"job_role.title":{"$in":["Specialist","Engineer"]}}}
+    return list(employees.find({"age":{"$gte":30 ,"$lte":45},"job_role.title":{"$in":["Specialist","Engineer"]}}
                                ,{"_id": 0}))
 
 
@@ -38,17 +38,23 @@ def get_employees_by_age_or_seniority():
 
 
 def get_managers_excluding_departments():
-    return list(employees.find({{"job_role.title":"Manager"},{"job_role.department":{"nin":["Sales","Marketing"]}}}
+    return list(employees.find({"job_role.title":"Manager","job_role.department":{"$nin":["Sales","Marketing"]}}
                                ,{"_id": 0}))
 
 
+
+
 def get_employees_by_lastname_and_age():
-    return list(employees.find({{"age":{"$lt":35}},{"name":{"$regex": "ces$"}}
+    return list(employees.find({"age":{"$lt":35},"$or":[{"name":{"$regex": "Nelson$"}},{"name":{"$regex": "Wright$"}}]}
+                                ,{"_id": 0,
+                                "name":1,
+                                "age":1,
+                                "job_role.department":1}))
 
 
 
 
-    )
+
 
 
 
